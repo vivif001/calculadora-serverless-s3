@@ -40,29 +40,31 @@
         <div id="resultado">Resultado: -</div>
     </div>
 
-    <script>
-        async function calcular(operacao) {
-            const num1 = document.getElementById('num1').value;
-            const num2 = document.getElementById('num2').value;
+   <script>
+    async function calcular(operacao) {
+        const num1 = document.getElementById('num1').value;
+        const num2 = document.getElementById('num2').value;
 
-            if (num1 === '' || num2 === '') {
-                alert('Por favor, preencha os dois campos!');
-                return;
-            }
-            const baseUrl = 'https://scpjas46oa.execute-api.us-east-1.amazonaws.com/';
-            const url = `${baseUrl}/${operacao}?a=${num1}&b=${num2}`;
-
-            document.getElementById('resultado').innerText = 'Calculando...';
-
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                document.getElementById('resultado').innerText = `Resultado: ${data.resultado}`;
-            } catch (error) {
-                console.error('Erro na requisição:', error);
-                document.getElementById('resultado').innerText = 'Erro ao realizar o cálculo.';
-            }
+        if (num1 === '' || num2 === '') {
+            alert('Por favor, preencha os dois campos!');
+            return;
         }
-    </script>
+
+        const baseUrl = 'https://scpjas46oa.execute-api.us-east-1.amazonaws.com';
+
+        const url = `${baseUrl}/${operacao}?op1=${num1}&op2=${num2}`;
+
+        document.getElementById('resultado').innerText = 'Calculando...';
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            document.getElementById('resultado').innerText = `Resultado: ${data.resultado}`;
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+            document.getElementById('resultado').innerText = 'Erro ao realizar o cálculo.';
+        }
+    }
+</script>
 </body>
 </html>
